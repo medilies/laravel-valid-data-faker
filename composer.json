@@ -16,7 +16,7 @@
         }
     ],
     "require": {
-        "php": "^8.1",
+        "php": "^8.0",
         "spatie/laravel-package-tools": "^1.13.0",
         "illuminate/contracts": "^9.0"
     },
@@ -35,8 +35,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Elaboratecode\\ValidDataFaker\\": "src",
-            "Elaboratecode\\ValidDataFaker\\Database\\Factories\\": "database/factories"
+            "Elaboratecode\\ValidDataFaker\\": "src"
         }
     },
     "autoload-dev": {

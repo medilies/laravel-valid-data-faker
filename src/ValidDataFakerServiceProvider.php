@@ -2,7 +2,6 @@
 
 namespace Elaboratecode\ValidDataFaker;
 
-use Elaboratecode\ValidDataFaker\Commands\ValidDataFakerCommand;
 use Spatie\LaravelPackageTools\Package;
 use Spatie\LaravelPackageTools\PackageServiceProvider;
 
@@ -17,9 +16,6 @@ class ValidDataFakerServiceProvider extends PackageServiceProvider
          */
         $package
             ->name('laravel-valid-data-faker')
-            ->hasConfigFile()
-            ->hasViews()
-            ->hasMigration('create_laravel-valid-data-faker_table')
-            ->hasCommand(ValidDataFakerCommand::class);
+            ->hasConfigFile();
     }
 }
