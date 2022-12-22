@@ -1,17 +1,17 @@
 {
-    "name": ":vendor_slug/:package_slug",
-    "description": ":package_description",
+    "name": "elaborate-code/laravel-valid-data-faker",
+    "description": "This is my package laravel-valid-data-faker",
     "keywords": [
-        ":vendor_name",
+        "elaborate-code",
         "laravel",
-        ":package_slug"
+        "laravel-valid-data-faker"
     ],
-    "homepage": "https://github.com/:vendor_slug/:package_slug",
+    "homepage": "https://github.com/elaborate-code/laravel-valid-data-faker",
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": "author@domain.com",
+            "name": "medilies",
+            "email": "medilies.contact@gmail.com",
             "role": "Developer"
         }
     ],
@@ -35,13 +35,13 @@
     },
     "autoload": {
         "psr-4": {
-            "VendorName\\Skeleton\\": "src",
-            "VendorName\\Skeleton\\Database\\Factories\\": "database/factories"
+            "Elaboratecode\\ValidDataFaker\\": "src",
+            "Elaboratecode\\ValidDataFaker\\Database\\Factories\\": "database/factories"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "VendorName\\Skeleton\\Tests\\": "tests"
+            "Elaboratecode\\ValidDataFaker\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -61,10 +61,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "VendorName\\Skeleton\\SkeletonServiceProvider"
+                "Elaboratecode\\ValidDataFaker\\ValidDataFakerServiceProvider"
             ],
             "aliases": {
-                "Skeleton": "VendorName\\Skeleton\\Facades\\Skeleton"
+                "ValidDataFaker": "Elaboratecode\\ValidDataFaker\\Facades\\ValidDataFaker"
             }
         }
     },

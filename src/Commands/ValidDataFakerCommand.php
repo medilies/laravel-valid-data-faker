@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace Elaboratecode\ValidDataFaker\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class ValidDataFakerCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'laravel-valid-data-faker';
 
     public $description = 'My command';
 
