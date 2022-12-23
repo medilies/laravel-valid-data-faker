@@ -14,4 +14,6 @@ abstract class ParameterFaker
     ) {
         $this->rules = array_map(ValidationRuleParser::class.'::parse', $rules);
     }
+
+    abstract public function generate();
 }

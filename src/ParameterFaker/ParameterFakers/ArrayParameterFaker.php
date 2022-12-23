@@ -13,4 +13,9 @@ class ArrayParameterFaker extends ParameterFaker
     ) {
         parent::__construct($param_name, $rules);
     }
+
+    public function generate(): array
+    {
+        return [];
+    }
 }
