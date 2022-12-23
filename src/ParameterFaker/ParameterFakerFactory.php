@@ -21,6 +21,7 @@ class ParameterFakerFactory
         $type_rules_count = count($type_rules);
 
         if ($type_rules_count > 1) {
+            // TODO: check parent type (numeric -> integer)
             throw new Exception('Conflict between many data type rules');
         } elseif ($type_rules_count === 0) {
             throw new Exception('No data type rule was detected');
@@ -35,11 +36,11 @@ class ParameterFakerFactory
         }
 
         return match ($type_rules[0]) {
-            'boolean' => new BooleanParameterFaker($param_name, $rules, $children),
-            'file' => new FileParameterFaker($param_name, $rules, $children),
-            'integer' => new IntegerParameterFaker($param_name, $rules, $children),
-            'numeric' => new NumericParameterFaker($param_name, $rules, $children),
-            'string' => new StringParameterFaker($param_name, $rules, $children),
+            'boolean' => new BooleanParameterFaker($param_name, $rules),
+            'file' => new FileParameterFaker($param_name, $rules),
+            'integer' => new IntegerParameterFaker($param_name, $rules),
+            'numeric' => new NumericParameterFaker($param_name, $rules),
+            'string' => new StringParameterFaker($param_name, $rules),
         };
     }
 }
