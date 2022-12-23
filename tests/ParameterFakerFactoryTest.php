@@ -1,19 +1,17 @@
 <?php
 
-use Elaboratecode\ValidDataFaker\ParameterFakers\Concrete\ArrayParameterFaker;
-use Elaboratecode\ValidDataFaker\ParameterFakers\Concrete\BooleanParameterFaker;
-use Elaboratecode\ValidDataFaker\ParameterFakers\Concrete\FileParameterFaker;
-use Elaboratecode\ValidDataFaker\ParameterFakers\Concrete\IntegerParameterFaker;
-use Elaboratecode\ValidDataFaker\ParameterFakers\Concrete\NumericParameterFaker;
-use Elaboratecode\ValidDataFaker\ParameterFakers\Concrete\StringParameterFaker;
-use Elaboratecode\ValidDataFaker\ParameterFakers\ParameterFakerFactory;
+use Elaboratecode\ValidDataFaker\ParameterFaker\ParameterFakerFactory;
+use Elaboratecode\ValidDataFaker\ParameterFaker\ParameterFakers\ArrayParameterFaker;
+use Elaboratecode\ValidDataFaker\ParameterFaker\ParameterFakers\BooleanParameterFaker;
+use Elaboratecode\ValidDataFaker\ParameterFaker\ParameterFakers\FileParameterFaker;
+use Elaboratecode\ValidDataFaker\ParameterFaker\ParameterFakers\IntegerParameterFaker;
+use Elaboratecode\ValidDataFaker\ParameterFaker\ParameterFakers\NumericParameterFaker;
+use Elaboratecode\ValidDataFaker\ParameterFaker\ParameterFakers\StringParameterFaker;
 
-it('makes', function ($rules, $param_faker_class) {
+it('makes', function (array $rules, string $param_faker_class) {
     $param_fakers_factory = new ParameterFakerFactory;
 
-    $param_faker = $param_fakers_factory->make('foo', [
-        'rules' => $rules,
-    ]);
+    $param_faker = $param_fakers_factory->make('foo', $rules);
 
     expect($param_faker)->toBeInstanceOf($param_faker_class);
 })->with([
@@ -43,10 +41,8 @@ it('makes', function ($rules, $param_faker_class) {
     ],
 ]);
 
-it('throws when no concrete ParameterFaker is matched')
+it('throws when no ParameterFakers ParameterFaker is matched')
     ->expect(
-        fn () => (new ParameterFakerFactory)->make('foo', [
-            'rules' => ['no-type-rule'],
-        ])
+        fn () => (new ParameterFakerFactory)->make('foo', ['no-type-rule'])
     )
     ->throws(Exception::class);
