@@ -3,34 +3,24 @@
 return dataset('rules', [
     'physics' => [
         [
-            'data' => ['required', 'array'],
-            'data.humidity' => ['required', 'numeric', 'min:0', 'max:100'],
-            'data.pressure' => ['required', 'numeric', 'min:800', 'max:1200'],
-            'data.temperature' => ['required', 'numeric', 'min:-100', 'max:100'],
+            'humidity' => ['required', 'numeric', 'min:0', 'max:100'],
+            'pressure' => ['required', 'numeric', 'min:800', 'max:1200'],
+            'temperature' => ['required', 'numeric', 'min:-100', 'max:100'],
         ],
         [
-            'data' => [
-                'required',
-                'array',
-                'humidity' => ['required', 'numeric', 'min:0', 'max:100'],
-                'pressure' => ['required', 'numeric', 'min:800', 'max:1200'],
-                'temperature' => ['required', 'numeric', 'min:-100', 'max:100'],
+            'humidity' => ['required', 'numeric', 'min:0', 'max:100'],
+            'pressure' => ['required', 'numeric', 'min:800', 'max:1200'],
+            'temperature' => ['required', 'numeric', 'min:-100', 'max:100'],
+        ],
+        [
+            'humidity' => [
+                'rules' => ['required', 'numeric', 'min:0', 'max:100'],
             ],
-        ],
-        [
-            'data' => [
-                'rules' => ['required', 'array'],
-                'children' => [
-                    'humidity' => [
-                        'rules' => ['required', 'numeric', 'min:0', 'max:100'],
-                    ],
-                    'pressure' => [
-                        'rules' => ['required', 'numeric', 'min:800', 'max:1200'],
-                    ],
-                    'temperature' => [
-                        'rules' => ['required', 'numeric', 'min:-100', 'max:100'],
-                    ],
-                ],
+            'pressure' => [
+                'rules' => ['required', 'numeric', 'min:800', 'max:1200'],
+            ],
+            'temperature' => [
+                'rules' => ['required', 'numeric', 'min:-100', 'max:100'],
             ],
         ],
     ],

@@ -7,15 +7,13 @@ use Illuminate\Support\Arr;
 
 class RulesSetNester
 {
-    public function __construct(protected array $rules_set)
+    public static function nest(array $rules_set)
     {
-    }
+        $instance = new static();
 
-    public function nest()
-    {
-        return $this->normalize(
-            $this->undot(
-                $this->pushUnderRulesKey($this->rules_set)
+        return $instance->normalize(
+            $instance->undot(
+                $instance->pushUnderRulesKey($rules_set)
             )
         )['children'];
     }
