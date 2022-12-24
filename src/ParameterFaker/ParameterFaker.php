@@ -45,4 +45,10 @@ abstract class ParameterFaker
     }
 
     abstract public function generate();
+
+    protected function injectRule(string $rule, array $parameters = []): void
+    {
+        $this->rules[] = $rule;
+        $this->parsed_rules[] = [$rule, $parameters];
+    }
 }
