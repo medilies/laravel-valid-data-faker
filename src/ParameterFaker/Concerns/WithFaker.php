@@ -1,0 +1,57 @@
+<?php
+
+namespace Elaboratecode\ValidDataFaker\ParameterFaker\Concerns;
+
+use Faker\Factory;
+use Faker\Generator;
+
+/**
+ * Copied from [Laravel 9] vendor\laravel\framework\src\Illuminate\Foundation\Testing\WithFaker.php
+ */
+trait WithFaker
+{
+    /**
+     * The Faker instance.
+     *
+     * @var \Faker\Generator
+     */
+    protected $faker;
+
+    /**
+     * Setup up the Faker instance.
+     *
+     * @return void
+     */
+    protected function setUpFaker()
+    {
+        $this->faker = $this->makeFaker();
+    }
+
+    /**
+     * Get the default Faker instance for a given locale.
+     *
+     * @param  string|null  $locale
+     * @return \Faker\Generator
+     */
+    protected function faker($locale = null)
+    {
+        return is_null($locale) ? $this->faker : $this->makeFaker($locale);
+    }
+
+    /**
+     * Create a Faker instance for the given locale.
+     *
+     * @param  string|null  $locale
+     * @return \Faker\Generator
+     */
+    protected function makeFaker($locale = null)
+    {
+        $locale ??= config('app.faker_locale', Factory::DEFAULT_LOCALE);
+
+        if (isset($this->app) && $this->app->bound(Generator::class)) {
+            return $this->app->make(Generator::class, ['locale' => $locale]);
+        }
+
+        return Factory::create($locale);
+    }
+}
