@@ -7,13 +7,13 @@ use Illuminate\Support\Arr;
 
 class RulesSetNester
 {
-    public static function nest(array $rules_set)
+    public static function nest(array $rules_set, array $examples = [])
     {
         $instance = new static();
 
         return $instance->normalize(
             $instance->undot(
-                $instance->pushUnderRulesKey($rules_set)
+                $instance->pushUnderRulesKey($rules_set, $examples)
             )
         )['children'];
     }
@@ -23,11 +23,16 @@ class RulesSetNester
         return Arr::undot($set);
     }
 
-    public function pushUnderRulesKey(array $rules_set): array
+    public function pushUnderRulesKey(array $rules_set, array $examples): array
     {
         foreach ($rules_set as $key => $value) {
             // ! forbid 'rules' as param name. or use a random str as key
             $rules_set[$key] = ['rules' => $value];
+            // dump($rules_set, $examples[$key]);
+
+            if (isset($examples[$key])) {
+                $rules_set[$key]['example'] = $examples[$key];
+            }
         }
 
         return $rules_set;
@@ -42,6 +47,8 @@ class RulesSetNester
         foreach ($set as $key => $value) {
             if ($key === 'rules') {
                 $normalized_set['rules'] = $value;
+            } elseif ($key === 'example') {
+                $normalized_set['example'] = $value;
             } elseif (is_array($value)) {
                 $normalized_set['children'][$key] = $this->normalize($value);
             } else {

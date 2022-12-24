@@ -5,6 +5,7 @@ namespace Elaboratecode\ValidDataFaker\ParameterFaker;
 use Elaboratecode\ValidDataFaker\Exceptions\ParameterFakerInstanciationException;
 use Elaboratecode\ValidDataFaker\ParameterFaker\ParameterFakers\ArrayParameterFaker;
 use Elaboratecode\ValidDataFaker\ParameterFaker\ParameterFakers\BooleanParameterFaker;
+use Elaboratecode\ValidDataFaker\ParameterFaker\ParameterFakers\ExampleParameterFaker;
 use Elaboratecode\ValidDataFaker\ParameterFaker\ParameterFakers\FileParameterFaker;
 use Elaboratecode\ValidDataFaker\ParameterFaker\ParameterFakers\IntegerParameterFaker;
 use Elaboratecode\ValidDataFaker\ParameterFaker\ParameterFakers\NumericParameterFaker;
@@ -15,8 +16,16 @@ class ParameterFakerFactory
     // ! readonly
     protected array $type_rules = ['array', 'boolean', 'file', 'integer', 'numeric', 'string'];
 
-    public function make(string $param_name, array $rules, ?array $children = null): ParameterFaker
-    {
+    public function make(
+        string $param_name,
+        array $rules,
+        ?array $children = null,
+        mixed $example = null,
+    ): ParameterFaker {
+        if (! is_null($example)) {
+            return new ExampleParameterFaker($param_name, $example);
+        }
+
         $type_rules = array_values(array_intersect($rules, $this->type_rules));
         $type_rules_count = count($type_rules);
 

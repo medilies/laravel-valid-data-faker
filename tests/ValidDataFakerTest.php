@@ -25,3 +25,29 @@ it('generates valid data sets', function (array $rules_set) {
         ],
     ],
 ]);
+
+it('gives priority to exmples', function (bool $passes, array $rules_set, array $examples) {
+    $generated = (new ValidDataFaker($rules_set, $examples))->generate();
+
+    $validator = Validator::make(
+        $generated,
+        $rules_set
+    );
+
+    expect($validator->passes())->toBe($passes);
+})->with([
+    'int on int' => [
+        true,
+        [
+            'date' => ['required', 'integer'],
+        ],
+        ['date' => 1],
+    ],
+    'int on date' => [
+        false,
+        [
+            'date' => ['required', 'string', 'date'],
+        ],
+        ['date' => 1],
+    ],
+]);
