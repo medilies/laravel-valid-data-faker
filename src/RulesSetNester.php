@@ -18,24 +18,22 @@ class RulesSetNester
         )['children'];
     }
 
-    protected function undot(array $set)
+    protected function undot(array $set): array
     {
         return Arr::undot($set);
     }
 
-    /**
-     * ! forbid 'rules' as param name
-     */
-    public function pushUnderRulesKey(array $rules_set)
+    public function pushUnderRulesKey(array $rules_set): array
     {
         foreach ($rules_set as $key => $value) {
+            // ! forbid 'rules' as param name. or use a random str as key
             $rules_set[$key] = ['rules' => $value];
         }
 
         return $rules_set;
     }
 
-    protected function normalize(array $set)
+    protected function normalize(array $set): array
     {
         $normalized_set = [
             'children' => [],
