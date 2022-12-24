@@ -2,6 +2,7 @@
 
 namespace Elaboratecode\ValidDataFaker\ParameterFaker;
 
+use Elaboratecode\ValidDataFaker\Generator\GeneratorFactory;
 use Illuminate\Validation\ValidationRuleParser;
 
 abstract class ParameterFaker
@@ -10,16 +11,19 @@ abstract class ParameterFaker
 
     protected array $rules;
 
+    protected GeneratorFactory $generator_factory;
+
     public function __construct(
         protected string $param_name,
         array $rules,
     ) {
         $this->setUpTraits();
 
+        $this->generator_factory = new GeneratorFactory;
+
         $this->parsed_rules = array_map(ValidationRuleParser::class.'::parse', $rules);
 
-        // pascal case to snake case
-        $this->rules = array_map(fn ($parsed_rule) => strtolower(preg_replace('/(?<!^)[A-Z]/', '_$0', $parsed_rule[0])), $this->parsed_rules);
+        $this->rules = array_column($this->parsed_rules, 0);
     }
 
     protected function setUpTraits()

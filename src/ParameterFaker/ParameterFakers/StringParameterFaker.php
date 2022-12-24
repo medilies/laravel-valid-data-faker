@@ -4,6 +4,7 @@ namespace Elaboratecode\ValidDataFaker\ParameterFaker\ParameterFakers;
 
 use Elaboratecode\ValidDataFaker\Concerns\WithFaker;
 use Elaboratecode\ValidDataFaker\Exceptions\ConflictedRulesException;
+use Elaboratecode\ValidDataFaker\Generator\Generator;
 use Elaboratecode\ValidDataFaker\ParameterFaker\ParameterFaker;
 
 class StringParameterFaker extends ParameterFaker
@@ -53,7 +54,7 @@ class StringParameterFaker extends ParameterFaker
 
     protected ?string $special_string;
 
-    protected string $generator;
+    protected Generator $generator;
 
     public function __construct(
         string $param_name,
@@ -71,7 +72,7 @@ class StringParameterFaker extends ParameterFaker
 
     public function generate(): string
     {
-        return $this->faker->{$this->generator}();
+        return $this->generator->__invoke();
     }
 
     /**
@@ -83,7 +84,6 @@ class StringParameterFaker extends ParameterFaker
             return;
         }
 
-        // TODO: Check conflicts here ?
         if (count(array_intersect($this->rules, ['after', 'after_or_equal', 'before', 'before_or_equal', 'date_equals', 'date_format'])) > 1) {
             $this->injectRule('date');
         }
@@ -98,7 +98,6 @@ class StringParameterFaker extends ParameterFaker
             return;
         }
 
-        // TODO: Check conflicts here ?
         if (count(array_intersect($this->rules, ['ip4', 'ip6'])) > 1) {
             $this->injectRule('ip');
         }
@@ -108,7 +107,7 @@ class StringParameterFaker extends ParameterFaker
     {
         $matched_special_string_rules = array_values(array_intersect(
             $this->rules,
-            ['date', 'email', 'ip', 'json', 'mac_address', 'timezone', 'url', 'ulid', 'uuid']
+            ['Date', 'Email', 'Ip', 'Json', 'MacAddress', 'Timezone', 'Url', 'Ulid', 'Uuid']
         ));
 
         if (count($matched_special_string_rules) > 1) {
@@ -127,17 +126,7 @@ class StringParameterFaker extends ParameterFaker
     protected function setGenerator(): void
     {
         if (! is_null($this->special_string)) {
-            $this->generator = match ($this->special_string) {
-                'date' => 'date',
-                'email' => 'email',
-                'ip' => 'ipv4',
-                'json' => 'json',
-                'mac_address' => 'macAddress',
-                'timezone' => 'timezone',
-                'url' => 'url',
-                'ulid' => 'uuid',
-                'uuid' => 'uuid',
-            };
+            $this->generator = $this->generator_factory->make('String', $this->special_string);
         }
     }
 }
