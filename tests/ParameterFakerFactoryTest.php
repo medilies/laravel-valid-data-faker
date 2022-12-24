@@ -1,5 +1,6 @@
 <?php
 
+use Elaboratecode\ValidDataFaker\Exceptions\ParameterFakerInstanciationException;
 use Elaboratecode\ValidDataFaker\ParameterFaker\ParameterFakerFactory;
 use Elaboratecode\ValidDataFaker\ParameterFaker\ParameterFakers\ArrayParameterFaker;
 use Elaboratecode\ValidDataFaker\ParameterFaker\ParameterFakers\BooleanParameterFaker;
@@ -53,8 +54,8 @@ it('makes array', function (array $rules, string $param_faker_class, $children) 
 
 it('throws when no ParameterFakers ParameterFaker is matched')
     ->expect(fn () => (new ParameterFakerFactory)->make('foo', ['no-type-rule']))
-    ->throws(Exception::class);
+    ->throws(ParameterFakerInstanciationException::class);
 
 it('throws when primitive params receive children')
     ->expect(fn () => (new ParameterFakerFactory)->make('foo', ['boolean'], []))
-    ->throws(Exception::class);
+    ->throws(ParameterFakerInstanciationException::class);

@@ -2,13 +2,13 @@
 
 namespace Elaboratecode\ValidDataFaker\ParameterFaker;
 
+use Elaboratecode\ValidDataFaker\Exceptions\ParameterFakerInstanciationException;
 use Elaboratecode\ValidDataFaker\ParameterFaker\ParameterFakers\ArrayParameterFaker;
 use Elaboratecode\ValidDataFaker\ParameterFaker\ParameterFakers\BooleanParameterFaker;
 use Elaboratecode\ValidDataFaker\ParameterFaker\ParameterFakers\FileParameterFaker;
 use Elaboratecode\ValidDataFaker\ParameterFaker\ParameterFakers\IntegerParameterFaker;
 use Elaboratecode\ValidDataFaker\ParameterFaker\ParameterFakers\NumericParameterFaker;
 use Elaboratecode\ValidDataFaker\ParameterFaker\ParameterFakers\StringParameterFaker;
-use Exception;
 
 class ParameterFakerFactory
 {
@@ -22,9 +22,9 @@ class ParameterFakerFactory
 
         if ($type_rules_count > 1) {
             // TODO: check parent type (numeric -> integer)
-            throw new Exception('Conflict between many data type rules');
+            throw new ParameterFakerInstanciationException('Conflict between many data type rules');
         } elseif ($type_rules_count === 0) {
-            throw new Exception('No data type rule was detected');
+            throw new ParameterFakerInstanciationException('No data type rule was detected');
         }
 
         if ($type_rules[0] === 'array') {
@@ -32,7 +32,7 @@ class ParameterFakerFactory
         }
 
         if (! is_null($children)) {
-            throw new Exception("children must not be set when the parameter isn't an array");
+            throw new ParameterFakerInstanciationException("children must not be set when the parameter isn't an array");
         }
 
         return match ($type_rules[0]) {
