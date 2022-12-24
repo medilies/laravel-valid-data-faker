@@ -2,8 +2,8 @@
 
 namespace Elaboratecode\ValidDataFaker\ParameterFaker\ParameterFakers;
 
+use Elaboratecode\ValidDataFaker\Concerns\WithFaker;
 use Elaboratecode\ValidDataFaker\Exceptions\ConflictedRulesException;
-use Elaboratecode\ValidDataFaker\ParameterFaker\Concerns\WithFaker;
 use Elaboratecode\ValidDataFaker\ParameterFaker\ParameterFaker;
 
 class StringParameterFaker extends ParameterFaker
