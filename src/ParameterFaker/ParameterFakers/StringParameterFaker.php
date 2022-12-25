@@ -52,8 +52,6 @@ class StringParameterFaker extends ParameterFaker
         'uuid', // UUID
     ];
 
-    protected ?string $special_string;
-
     protected Generator $generator;
 
     public function __construct(
@@ -64,8 +62,6 @@ class StringParameterFaker extends ParameterFaker
 
         $this->dateRuleCheck();
         $this->ipRuleCheck();
-
-        $this->setSpecialString();
 
         $this->setGenerator();
     }
@@ -103,7 +99,7 @@ class StringParameterFaker extends ParameterFaker
         }
     }
 
-    protected function setSpecialString(): void
+    protected function setGenerator(): void
     {
         $matched_special_string_rules = array_values(array_intersect(
             $this->rules,
@@ -115,18 +111,14 @@ class StringParameterFaker extends ParameterFaker
         }
 
         if (count($matched_special_string_rules) === 1) {
-            $this->special_string = array_values($matched_special_string_rules)[0];
+            $this->generator = $this->generator_factory->make(
+                'String',
+                array_values($matched_special_string_rules)[0]
+            );
 
             return;
         }
 
-        $this->special_string = null;
-    }
-
-    protected function setGenerator(): void
-    {
-        if (! is_null($this->special_string)) {
-            $this->generator = $this->generator_factory->make('String', $this->special_string);
-        }
+        // TODO: add generic string generator
     }
 }
