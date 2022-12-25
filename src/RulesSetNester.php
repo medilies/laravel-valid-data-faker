@@ -5,7 +5,7 @@ namespace Elaboratecode\ValidDataFaker;
 use Exception;
 use Illuminate\Support\Arr;
 
-class RulesSetNester
+final class RulesSetNester
 {
     public static function nest(array $rules_set, array $examples = [])
     {
@@ -28,7 +28,6 @@ class RulesSetNester
         foreach ($rules_set as $key => $value) {
             // ! forbid 'rules' as param name. or use a random str as key
             $rules_set[$key] = ['rules' => $value];
-            // dump($rules_set, $examples[$key]);
 
             if (isset($examples[$key])) {
                 $rules_set[$key]['example'] = $examples[$key];
