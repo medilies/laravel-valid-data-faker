@@ -31,9 +31,9 @@ class ParameterFakerFactory
 
         if ($type_rules_count > 1) {
             // TODO: check parent type (numeric -> integer)
-            throw new ParameterFakerInstanciationException('Conflict between many data type rules');
+            $this->throw('Conflict between many data type rules');
         } elseif ($type_rules_count === 0) {
-            throw new ParameterFakerInstanciationException('No data type rule was detected');
+            $this->throw('No data type rule was detected');
         }
 
         if ($type_rules[0] === 'array') {
@@ -41,7 +41,7 @@ class ParameterFakerFactory
         }
 
         if (! is_null($children)) {
-            throw new ParameterFakerInstanciationException("children must not be set when the parameter isn't an array");
+            $this->throw("children must not be set when the parameter isn't an array");
         }
 
         return match ($type_rules[0]) {
@@ -50,6 +50,12 @@ class ParameterFakerFactory
             'integer' => new IntegerParameterFaker($param_name, $rules),
             'numeric' => new NumericParameterFaker($param_name, $rules),
             'string' => new StringParameterFaker($param_name, $rules),
+            default => $this->throw('Unmatched concrete ParamFaker'),
         };
+    }
+
+    protected function throw(string $message = ''): void
+    {
+        throw new ParameterFakerInstanciationException($message);
     }
 }
