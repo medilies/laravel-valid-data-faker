@@ -2,14 +2,13 @@
 
 namespace Elaboratecode\ValidDataFaker\ParameterFaker\ParameterFakers;
 
-use Elaboratecode\ValidDataFaker\Concerns\WithFaker;
+use Elaboratecode\ValidDataFaker\Concerns\WithGenerator;
 use Elaboratecode\ValidDataFaker\Exceptions\ConflictedRulesException;
-use Elaboratecode\ValidDataFaker\Generator\Generator;
 use Elaboratecode\ValidDataFaker\ParameterFaker\ParameterFaker;
 
 class StringParameterFaker extends ParameterFaker
 {
-    use WithFaker;
+    use WithGenerator;
 
     protected array $modifier_rules = [
         'after', // Date
@@ -51,8 +50,6 @@ class StringParameterFaker extends ParameterFaker
         'ulid', // ULID
         'uuid', // UUID
     ];
-
-    protected Generator $generator;
 
     public function __construct(
         string $param_name,
@@ -111,7 +108,7 @@ class StringParameterFaker extends ParameterFaker
         }
 
         if (count($matched_special_string_rules) === 1) {
-            $this->generator = $this->generator_factory->make(
+            $this->generator = $this->makeGenerator(
                 'String',
                 array_values($matched_special_string_rules)[0]
             );

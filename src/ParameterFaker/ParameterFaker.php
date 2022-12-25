@@ -2,24 +2,21 @@
 
 namespace Elaboratecode\ValidDataFaker\ParameterFaker;
 
-use Elaboratecode\ValidDataFaker\Generator\GeneratorFactory;
 use Illuminate\Validation\ValidationRuleParser;
 
 abstract class ParameterFaker
 {
+    abstract public function generate();
+
     protected array $parsed_rules;
 
     protected array $rules;
-
-    protected GeneratorFactory $generator_factory;
 
     public function __construct(
         protected string $param_name,
         array $rules,
     ) {
         $this->setUpTraits();
-
-        $this->generator_factory = new GeneratorFactory;
 
         $this->parsed_rules = array_map(ValidationRuleParser::class.'::parse', $rules);
 
@@ -38,8 +35,6 @@ abstract class ParameterFaker
 
         return $uses;
     }
-
-    abstract public function generate();
 
     protected function injectRule(string $rule, array $parameters = []): void
     {
