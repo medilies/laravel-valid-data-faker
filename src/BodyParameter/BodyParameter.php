@@ -1,10 +1,10 @@
 <?php
 
-namespace Elaboratecode\ValidDataFaker\ParameterFaker;
+namespace Elaboratecode\ValidDataFaker\BodyParameter;
 
 use Illuminate\Validation\ValidationRuleParser;
 
-abstract class ParameterFaker
+abstract class BodyParameter
 {
     abstract public function generate();
 

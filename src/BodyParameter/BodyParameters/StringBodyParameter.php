@@ -1,12 +1,12 @@
 <?php
 
-namespace Elaboratecode\ValidDataFaker\ParameterFaker\ParameterFakers;
+namespace Elaboratecode\ValidDataFaker\BodyParameter\BodyParameters;
 
+use Elaboratecode\ValidDataFaker\BodyParameter\BodyParameter;
 use Elaboratecode\ValidDataFaker\Concerns\WithGenerator;
 use Elaboratecode\ValidDataFaker\Exceptions\ConflictedRulesException;
-use Elaboratecode\ValidDataFaker\ParameterFaker\ParameterFaker;
 
-class StringParameterFaker extends ParameterFaker
+class StringBodyParameter extends BodyParameter
 {
     use WithGenerator;
 

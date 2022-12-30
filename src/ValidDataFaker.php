@@ -2,31 +2,31 @@
 
 namespace Elaboratecode\ValidDataFaker;
 
-use Elaboratecode\ValidDataFaker\ParameterFaker\ParameterFaker;
-use Elaboratecode\ValidDataFaker\ParameterFaker\ParameterFakerFactory;
+use Elaboratecode\ValidDataFaker\BodyParameter\BodyParameter;
+use Elaboratecode\ValidDataFaker\BodyParameter\BodyParameterFactory;
 
 class ValidDataFaker
 {
-    /** @var ParameterFaker[] */
-    protected array $param_fakers;
+    /** @var BodyParameter[] */
+    protected array $body;
 
     protected array $rules_set;
 
-    protected ParameterFakerFactory $param_fakers_factory;
+    protected BodyParameterFactory $body_params_factory;
 
     public function __construct(array $rules_set, array $examples = [])
     {
-        $this->param_fakers_factory = new ParameterFakerFactory;
+        $this->body_params_factory = new BodyParameterFactory;
 
         $this->rules_set = RulesSetNester::nest($rules_set, $examples);
 
-        $this->setTopLevelParamFakers();
+        $this->makeBody();
     }
 
-    public function setTopLevelParamFakers(): void
+    public function makeBody(): void
     {
         foreach ($this->rules_set as $param_name => $details) {
-            $this->param_fakers[$param_name] = $this->param_fakers_factory->make(
+            $this->body[$param_name] = $this->body_params_factory->make(
                 $param_name,
                 $details['rules'],
                 $details['children'] ?? null,
@@ -35,12 +35,12 @@ class ValidDataFaker
         }
     }
 
-    public function generate(): array
+    public function getFilledBody(): array
     {
         $data = [];
 
-        foreach ($this->param_fakers as $param_name => $param_faker) {
-            $data[$param_name] = $param_faker->generate();
+        foreach ($this->body as $param_name => $body_param) {
+            $data[$param_name] = $body_param->generate();
         }
 
         return $data;

@@ -1,13 +1,13 @@
 <?php
 
-use Elaboratecode\ValidDataFaker\ParameterFaker\ParameterFakers\StringParameterFaker;
+use Elaboratecode\ValidDataFaker\BodyParameter\BodyParameters\StringBodyParameter;
 use Illuminate\Support\Facades\Validator;
 
 it('works', function (array $rules) {
-    $string_param_faker = new StringParameterFaker('foo', $rules);
+    $string_body_param = new StringBodyParameter('foo', $rules);
 
     $validator = Validator::make(
-        ['foo' => $string_param_faker->generate()],
+        ['foo' => $string_body_param->generate()],
         ['foo' => $rules]
     );
 

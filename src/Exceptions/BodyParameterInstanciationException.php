@@ -4,6 +4,6 @@ namespace Elaboratecode\ValidDataFaker\Exceptions;
 
 use Exception;
 
-class ParameterFakerInstanciationException extends Exception
+class BodyParameterInstanciationException extends Exception
 {
 }

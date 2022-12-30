@@ -4,7 +4,7 @@ use Elaboratecode\ValidDataFaker\ValidDataFaker;
 use Illuminate\Support\Facades\Validator;
 
 it('generates valid data sets', function (array $rules_set) {
-    $generated = (new ValidDataFaker($rules_set))->generate();
+    $generated = (new ValidDataFaker($rules_set))->getFilledBody();
 
     $validator = Validator::make(
         $generated,
@@ -27,7 +27,7 @@ it('generates valid data sets', function (array $rules_set) {
 ]);
 
 it('gives priority to exmples', function (bool $passes, array $rules_set, array $examples) {
-    $generated = (new ValidDataFaker($rules_set, $examples))->generate();
+    $generated = (new ValidDataFaker($rules_set, $examples))->getFilledBody();
 
     $validator = Validator::make(
         $generated,

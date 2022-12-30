@@ -1,10 +1,10 @@
 <?php
 
-namespace Elaboratecode\ValidDataFaker\ParameterFaker\ParameterFakers;
+namespace Elaboratecode\ValidDataFaker\BodyParameter\BodyParameters;
 
-use Elaboratecode\ValidDataFaker\ParameterFaker\ParameterFaker;
+use Elaboratecode\ValidDataFaker\BodyParameter\BodyParameter;
 
-class ArrayParameterFaker extends ParameterFaker
+class ArrayBodyParameter extends BodyParameter
 {
     public function __construct(
         string $param_name,
